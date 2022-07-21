@@ -5,7 +5,7 @@ import { TokenValidation } from "../middleware/auth";
 const router = express.Router();
 
 router
-    .get("/users")
+    .get("/users", TokenValidation, UserController.listUsers)
     .post("/users/login", UserController.login)
     .post("/users/register", UserController.register)
     .put("/users/:id", TokenValidation, UserController.editUser)

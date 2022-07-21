@@ -81,6 +81,18 @@ export class UserController {
 
   }
 
+  static listUsers = (req: Request, res: Response) => {
+    if (isAdmin(req, res) === false) {
+      return res.status(401).send("Only ADMIN can access")
+    }
+
+    users.find()
+        .exec((err, users) => {
+            if (err) console.log(err);
+            return res.status(200).json(users);
+        });
+}
+
   static editUser = (req: Request, res: Response) => {
     if (isAdmin(req, res) === false) {
       return res.status(401).send("Only ADMIN can access")

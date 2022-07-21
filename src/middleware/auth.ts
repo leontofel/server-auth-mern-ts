@@ -17,8 +17,10 @@ export const isAdmin = (req: Request, res: Response) => {
   if (!token) return res.status(401).json("Insert Token");
 
   const payload = jwt.verify(token, process.env.TOKEN_KEY || "TOKENkey");
+  const payloadAdm = jwt.verify(process.env.ADMIN_TOKEN, process.env.TOKEN_KEY || "TOKENkey");
+  
 
-  if (payload["user_id"] === (process.env.ADMIN_ID)) {
+  if (`${payload["user_id"]}` === payloadAdm["user_id"]) {
     return true;
   }
   return false
